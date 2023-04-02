@@ -9,17 +9,16 @@ public class BossAnimatorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
-
-    public void PlayTargetAnimation(string targetAnim, bool isInteracting)
-    {
+    
+    public void PlayTargetAnimation(string targetAnim, bool isInteracting) { 
         anim.applyRootMotion = isInteracting;
         anim.SetBool("isInteracting", isInteracting);
         anim.CrossFade(targetAnim, 0.2f);

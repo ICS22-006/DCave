@@ -23,14 +23,12 @@ public class BossStats : CharacterStats
         //currentHealth = maxHealth;
     }
 
-    private int SetMaxHealthFromHealthLevel()
-    {
+    private int SetMaxHealthFromHealthLevel() {
         maxHealth = healthLevel * 10;
         return maxHealth;
     }
 
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(int damage) {
         currentHealth = currentHealth - damage;
         Debug.Log(currentHealth);
 
@@ -40,12 +38,11 @@ public class BossStats : CharacterStats
             //anim.Play("death");
             //navMeshAgent.isStopped = true;
         }
-        else
-        {
+        else {
             anim.SetTrigger("isHit");
             navMeshAgent.isStopped = true;
         }
-
+        
 
     }
 }

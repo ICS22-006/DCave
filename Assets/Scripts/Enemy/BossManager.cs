@@ -13,26 +13,24 @@ public class BossManager : MonoBehaviour
     public float minimumDetectionAngle = -50f;
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     private void FixedUpdate()
     {
         HandleCurrentAction();
     }
-    public void HandleCurrentAction()
-    {
+    public void HandleCurrentAction() {
         if (bossLocomotion.currentTarget == null)
         {
             bossLocomotion.HandleDetection();
         }
-        else
-        {
+        else {
             bossLocomotion.HandleMoveToTarget();
         }
     }

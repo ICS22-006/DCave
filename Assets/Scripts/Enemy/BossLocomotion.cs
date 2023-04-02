@@ -32,7 +32,7 @@ public class BossLocomotion : MonoBehaviour
         state = newState;
     }
 
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -47,16 +47,14 @@ public class BossLocomotion : MonoBehaviour
         //        bossAnimatorManager.anim.SetBool("isChasing", true);
         //    }
         //}
-        if (playerTagged)
-        {
+        if (playerTagged) {
             distanceFromTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
             // what happens here depends on the state we're currently in!
             if (bossStats.currentHealth <= 0)
             {
                 Update_Dead();
             }
-            else
-            {
+            else {
                 switch (state)
                 {
                     case EnemyState.IDLE: Update_Idle(); break;
@@ -65,7 +63,7 @@ public class BossLocomotion : MonoBehaviour
                     default: Debug.Log("Invalid state!"); break;
                 }
             }
-
+            
         }
     }
 
@@ -73,13 +71,11 @@ public class BossLocomotion : MonoBehaviour
     {
         Debug.Log("Afyer hit");
         Collider[] colliders = Physics.OverlapSphere(transform.position, bossManager.detectionRadius, detectionLayer);
-        for (int i = 0; i < colliders.Length; i++)
-        {
+        for (int i = 0; i < colliders.Length; i++) {
             PlayerStats playerStats = colliders[i].transform.GetComponent<PlayerStats>();
             Debug.Log(playerStats.maxHealth);
 
-            if (playerStats != null)
-            {
+            if (playerStats != null) {
                 Debug.Log("Found player");
                 Vector3 targetDirection = playerStats.transform.position - transform.position;
                 float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
@@ -104,7 +100,7 @@ public class BossLocomotion : MonoBehaviour
         float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
 
         playerTagged = true;
-
+        
         //if (distanceFromTarget > stoppingDistance)
         //{
         //    bossAnimatorManager.anim.SetBool("isChasing", true);
@@ -126,7 +122,7 @@ public class BossLocomotion : MonoBehaviour
         //    }
         //}
 
-
+        
     }
 
     void Update_Idle()
@@ -145,8 +141,8 @@ public class BossLocomotion : MonoBehaviour
         Debug.Log(bossManager.detectionRadius);
         bossAnimatorManager.anim.SetBool("isAttacking", false);
         bossAnimatorManager.anim.SetBool("isChasing", true);
-
-
+       
+        
         navMeshAgent.isStopped = false;                            // start the agent (following)
         navMeshAgent.SetDestination(currentTarget.transform.position);    // follow the target
         if (distanceFromTarget > chaseRange)
@@ -158,21 +154,20 @@ public class BossLocomotion : MonoBehaviour
         {
             SetState(EnemyState.ATTACK);
         }
-
+  
     }
 
     void Update_Attack()
     {
         navMeshAgent.isStopped = true;                            // start the agent (following)
-
+        
         bossAnimatorManager.anim.SetBool("isAttacking", true);
         if (distanceFromTarget > attackingDistance)
         {
             SetState(EnemyState.CHASE);
         }
     }
-    void Update_Dead()
-    {
+    void Update_Dead() {
         bossAnimatorManager.anim.Play("death");
         navMeshAgent.isStopped = true;
     }
